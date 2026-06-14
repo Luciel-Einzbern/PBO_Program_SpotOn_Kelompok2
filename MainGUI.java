@@ -75,10 +75,18 @@ public class MainGUI implements ActionListener {
 	Font fontComponent = new Font("Helvetica Roman", Font.PLAIN, 13);
 	Font fontConsole = new Font("Consolas", Font.PLAIN, 12);
 
-	Color colorSidebar = new Color(33, 37, 41); // Dark Charcoal
-	Color colorBackground = new Color(248, 249, 250); // Light Gray
-	Color colorAccent = new Color(0, 123, 255); // Electric Blue
+	Color confirmBG = new Color(19, 27, 65);
+	Color resetFG = new Color(19, 27, 65);
+	Color resetBG = new Color(217, 222, 233);
+	Color colorSidebar = new Color(33, 37, 41);
+	Color colorBackground = new Color(248, 249, 250);
+	Color colorAccent = new Color(255, 177, 20);
 	Color colorWhite = Color.WHITE;
+
+	ImageIcon iconLayanan = new ImageIcon("Car.png");
+	ImageIcon iconBulanan = new ImageIcon("Date.png");
+	ImageIcon iconHarian = new ImageIcon("Clock.png");
+	ImageIcon iconAdmin = new ImageIcon("Gear.png");
 
 	private String posisiUser;
 
@@ -100,7 +108,7 @@ public class MainGUI implements ActionListener {
 
 		leftPanel = new JPanel();
 		leftPanel.setBounds(0, 0, 240, 550);
-		leftPanel.setBackground(colorSidebar);
+		leftPanel.setBackground(new Color(26, 37, 89));
 		leftPanel.setLayout(null);
 
 		JLabel lblLogoGambar = new JLabel();
@@ -122,37 +130,45 @@ public class MainGUI implements ActionListener {
 		leftPanel.add(lblLogoGambar);
 
 		JLabel lblNavTitle1 = new JLabel("LAYANAN UTAMA");
-		lblNavTitle1.setForeground(Color.GRAY);
+		lblNavTitle1.setForeground(colorWhite);
 		lblNavTitle1.setFont(new Font("Helvetica Roman", Font.BOLD, 11));
 		lblNavTitle1.setBounds(20, 190, 200, 20);
 		leftPanel.add(lblNavTitle1);
 
 		btnLayanan = new JButton("Layanan Parkir");
 		btnLayanan.setBounds(20, 215, 200, 40);
+		btnLayanan.setIcon(iconLayanan);
+		btnLayanan.setIconTextGap(10);
 		konfigurasiTombolNavigasi(btnLayanan);
 
 		JLabel lblNavTitle2 = new JLabel("LAPORAN & RIWAYAT");
-		lblNavTitle2.setForeground(Color.GRAY);
+		lblNavTitle2.setForeground(colorWhite);
 		lblNavTitle2.setFont(new Font("Helvetica Roman", Font.BOLD, 11));
 		lblNavTitle2.setBounds(20, 280, 200, 20);
 		leftPanel.add(lblNavTitle2);
 
 		btnBulanan = new JButton("Riwayat Bulanan");
 		btnBulanan.setBounds(20, 305, 200, 40);
+		btnBulanan.setIcon(iconBulanan);
+		btnBulanan.setIconTextGap(10);
 		konfigurasiTombolNavigasi(btnBulanan);
 
 		btnHarian = new JButton("Riwayat Harian");
 		btnHarian.setBounds(20, 355, 200, 40);
+		btnHarian.setIcon(iconHarian);
+		btnHarian.setIconTextGap(10);
 		konfigurasiTombolNavigasi(btnHarian);
 
 		JLabel lblNavTitle3 = new JLabel("PENGATURAN SISTEM");
-		lblNavTitle3.setForeground(Color.GRAY);
+		lblNavTitle3.setForeground(colorWhite);
 		lblNavTitle3.setFont(new Font("Helvetica Roman", Font.BOLD, 11));
 		lblNavTitle3.setBounds(20, 420, 200, 20);
 		leftPanel.add(lblNavTitle3);
 
 		btnAdmin = new JButton("Admin Menu");
 		btnAdmin.setBounds(20, 445, 200, 40);
+		btnAdmin.setIcon(iconAdmin);
+		btnAdmin.setIconTextGap(10);
 		konfigurasiTombolNavigasi(btnAdmin);
 
 		cardLayout = new CardLayout();
@@ -184,7 +200,7 @@ public class MainGUI implements ActionListener {
 		}
 
 		btnLayanan.setBackground(colorAccent);
-		btnLayanan.setForeground(colorWhite);
+		btnLayanan.setForeground(Color.BLACK);
 
 		perbaruiTampilanTabelHarian();
 		perbaruiTampilanTabelBulanan();
@@ -195,8 +211,8 @@ public class MainGUI implements ActionListener {
 	private void konfigurasiTombolNavigasi(JButton button) {
 		button.setFocusable(false);
 		button.setFont(fontComponent);
-		button.setBackground(new Color(49, 54, 59));
-		button.setForeground(new Color(206, 212, 218));
+		button.setBackground(new Color(19, 27, 65));
+		button.setForeground(Color.WHITE);
 		button.setBorderPainted(false);
 		button.setHorizontalAlignment(SwingConstants.LEFT);
 		button.setMargin(new Insets(0, 15, 0, 0));
@@ -206,8 +222,8 @@ public class MainGUI implements ActionListener {
 	}
 
 	private void resetWarnaTombolNavigasi() {
-		Color colorDefaultBg = new Color(49, 54, 59);
-		Color colorDefaultFg = new Color(206, 212, 218);
+		Color colorDefaultBg = new Color(19, 27, 65);
+		Color colorDefaultFg = colorWhite;
 		btnLayanan.setBackground(colorDefaultBg);
 		btnLayanan.setForeground(colorDefaultFg);
 		btnBulanan.setBackground(colorDefaultBg);
@@ -222,6 +238,8 @@ public class MainGUI implements ActionListener {
 		panelLayanan = new JPanel(null);
 		panelLayanan.setBackground(colorBackground);
 
+		ImageIcon iconDenah = new ImageIcon("Denah.png");
+
 		JLabel title = new JLabel("Layanan Operasional Parkir");
 		title.setFont(fontTitle);
 		title.setBounds(25, 20, 300, 30);
@@ -232,6 +250,7 @@ public class MainGUI implements ActionListener {
 		String[] menuOptions = { "Masuk", "Keluar", "Tracking" };
 		comboMenu = new JComboBox<>(menuOptions);
 		comboMenu.setFont(fontComponent);
+		comboMenu.setFocusable(false);
 		comboMenu.setBounds(25, 95, 160, 30);
 
 		JLabel lblJenis = new JLabel("Jenis Kendaraan");
@@ -240,6 +259,7 @@ public class MainGUI implements ActionListener {
 		String[] jenisOptions = { "Mobil", "Motor" };
 		comboJenis = new JComboBox<>(jenisOptions);
 		comboJenis.setFont(fontComponent);
+		comboJenis.setFocusable(false);
 		comboJenis.setBounds(210, 95, 160, 30);
 
 		JLabel lblPlat = new JLabel("Input Plat Nomor");
@@ -251,15 +271,16 @@ public class MainGUI implements ActionListener {
 
 		btnDenah = new JButton("Denah Parkir");
 		btnDenah.setFont(fontComponent);
-		btnDenah.setBackground(new Color(108, 117, 125));
-		btnDenah.setForeground(colorWhite);
+		btnDenah.setBackground(new Color(217, 222, 233));
+		btnDenah.setForeground(new Color(19, 27, 65));
 		btnDenah.setBounds(25, 145, 160, 35);
+		btnDenah.setIcon(iconDenah);
 		btnDenah.setFocusable(false);
 		btnDenah.addActionListener(this);
 
 		confirmBT = new JButton("Confirm");
 		confirmBT.setFont(fontComponent);
-		confirmBT.setBackground(new Color(40, 167, 69));
+		confirmBT.setBackground(confirmBG);
 		confirmBT.setForeground(colorWhite);
 		confirmBT.setBounds(380, 145, 95, 35);
 		confirmBT.setFocusable(false);
@@ -267,8 +288,8 @@ public class MainGUI implements ActionListener {
 
 		resetBT = new JButton("Reset");
 		resetBT.setFont(fontComponent);
-		resetBT.setBackground(new Color(220, 53, 69));
-		resetBT.setForeground(colorWhite);
+		resetBT.setBackground(resetBG);
+		resetBT.setForeground(resetFG);
 		resetBT.setBounds(485, 145, 85, 35);
 		resetBT.setFocusable(false);
 		resetBT.addActionListener(this);
@@ -305,6 +326,7 @@ public class MainGUI implements ActionListener {
 		JLabel title = new JLabel("Riwayat Data Bulanan");
 		title.setFont(fontTitle);
 		title.setBounds(25, 20, 400, 30);
+		title.setForeground(new Color(19, 27, 65));
 		panelBulanan.add(title);
 
 		String[] headersBulanan = { "Hari", "Total Omset Harian" };
@@ -326,7 +348,7 @@ public class MainGUI implements ActionListener {
 
 		lblGrandTotal = new JLabel("Grand Total Pendapatan Bulanan: Rp 0");
 		lblGrandTotal.setFont(new Font("Helvetica Roman", Font.BOLD, 14));
-		lblGrandTotal.setForeground(new Color(40, 167, 69));
+		lblGrandTotal.setForeground(new Color(0, 95, 219));
 		lblGrandTotal.setBounds(25, 455, 545, 25);
 		panelBulanan.add(lblGrandTotal);
 	}
@@ -338,12 +360,14 @@ public class MainGUI implements ActionListener {
 		JLabel title = new JLabel("Riwayat Kendaraan Tanggal");
 		title.setFont(fontTitle);
 		title.setBounds(25, 20, 260, 30);
+		title.setForeground(new Color(19, 27, 65));
 
 		comboHariHarian = new JComboBox<>();
 		for (int i = 1; i <= 30; i++)
 			comboHariHarian.addItem(i);
 		comboHariHarian.setFont(fontComponent);
 		comboHariHarian.setBounds(290, 22, 80, 28);
+		comboHariHarian.setFocusable(false);
 		comboHariHarian.addActionListener(e -> perbaruiTampilanTabelHarian());
 
 		String[] namaKolom = { "ID", "Plat Nomor", "Jenis", "Waktu Masuk", "Waktu Keluar", "Tarif" };
@@ -375,6 +399,7 @@ public class MainGUI implements ActionListener {
 		JLabel title = new JLabel("Developer & Admin Menu");
 		title.setFont(fontTitle);
 		title.setBounds(25, 20, 300, 30);
+		title.setForeground(new Color(19, 27, 65));
 
 		JLabel lblHari = new JLabel("Simulasi Posisi Hari/Tanggal (1-30) :");
 		lblHari.setFont(fontLabel);
@@ -385,6 +410,7 @@ public class MainGUI implements ActionListener {
 			comboHariAdmin.addItem(i);
 		comboHariAdmin.setFont(fontComponent);
 		comboHariAdmin.setBounds(280, 75, 100, 30);
+		comboHariAdmin.setFocusable(false);
 
 		JLabel lblDetik = new JLabel("Konfigurasi Waktu (1 Jam = ... Detik) :");
 		lblDetik.setFont(fontLabel);
@@ -396,7 +422,7 @@ public class MainGUI implements ActionListener {
 
 		confirmAdminBT = new JButton("Confirm");
 		confirmAdminBT.setFont(fontComponent);
-		confirmAdminBT.setBackground(new Color(40, 167, 69));
+		confirmAdminBT.setBackground(confirmBG);
 		confirmAdminBT.setForeground(colorWhite);
 		confirmAdminBT.setBounds(150, 190, 100, 35);
 		confirmAdminBT.setFocusable(false);
@@ -404,8 +430,8 @@ public class MainGUI implements ActionListener {
 
 		resetAdminBT = new JButton("Reset");
 		resetAdminBT.setFont(fontComponent);
-		resetAdminBT.setBackground(new Color(220, 53, 69));
-		resetAdminBT.setForeground(colorWhite);
+		resetAdminBT.setBackground(resetBG);
+		resetAdminBT.setForeground(resetFG);
 		resetAdminBT.setBounds(265, 190, 90, 35);
 		resetAdminBT.setFocusable(false);
 		resetAdminBT.addActionListener(this);
@@ -426,21 +452,24 @@ public class MainGUI implements ActionListener {
 		dialogDenah.setSize(600, 450);
 		dialogDenah.setLayout(null);
 		dialogDenah.setLocationRelativeTo(frame);
-		dialogDenah.getContentPane().setBackground(colorBackground);
+		dialogDenah.getContentPane().setBackground(new Color(26, 37, 89));
 
 		JLabel lblTitle = new JLabel("Peta Ketersediaan Slot Parkir");
 		lblTitle.setFont(fontTitle);
+		lblTitle.setForeground(colorWhite);
 		lblTitle.setBounds(20, 15, 300, 30);
 		dialogDenah.add(lblTitle);
 
 		JLabel lblFilter = new JLabel("Jenis Kendaraan:");
 		lblFilter.setFont(fontLabel);
+		lblFilter.setForeground(colorWhite);
 		lblFilter.setBounds(20, 60, 150, 25);
 		dialogDenah.add(lblFilter);
 
 		JComboBox<String> comboJenisDenah = new JComboBox<>(new String[] { "Mobil", "Motor" });
 		comboJenisDenah.setFont(fontComponent);
 		comboJenisDenah.setBounds(150, 60, 120, 25);
+		comboJenisDenah.setFocusable(false);
 		dialogDenah.add(comboJenisDenah);
 
 		String[] headerDenah = { "No.", "Status", "Jenis Kendaraan", "Plat Nomor" };
@@ -474,14 +503,14 @@ public class MainGUI implements ActionListener {
 		if (source == btnLayanan) {
 			resetWarnaTombolNavigasi();
 			btnLayanan.setBackground(colorAccent);
-			btnLayanan.setForeground(colorWhite);
+			btnLayanan.setForeground(Color.BLACK);
 			cardLayout.show(rightContainer, "Layanan");
 		}
 
 		if (source == btnBulanan) {
 			resetWarnaTombolNavigasi();
 			btnBulanan.setBackground(colorAccent);
-			btnBulanan.setForeground(colorWhite);
+			btnBulanan.setForeground(Color.BLACK);
 			cardLayout.show(rightContainer, "Bulanan");
 			perbaruiTampilanTabelBulanan();
 		}
@@ -489,7 +518,7 @@ public class MainGUI implements ActionListener {
 		if (source == btnHarian) {
 			resetWarnaTombolNavigasi();
 			btnHarian.setBackground(colorAccent);
-			btnHarian.setForeground(colorWhite);
+			btnHarian.setForeground(Color.BLACK);
 			cardLayout.show(rightContainer, "Harian");
 			perbaruiTampilanTabelHarian();
 		}
@@ -497,7 +526,7 @@ public class MainGUI implements ActionListener {
 		if (source == btnAdmin) {
 			resetWarnaTombolNavigasi();
 			btnAdmin.setBackground(colorAccent);
-			btnAdmin.setForeground(colorWhite);
+			btnAdmin.setForeground(Color.BLACK);
 			cardLayout.show(rightContainer, "Admin");
 			comboHariAdmin.setSelectedIndex(DatabaseParkir.hariIni);
 		}
