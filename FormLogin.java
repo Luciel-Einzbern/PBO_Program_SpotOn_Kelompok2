@@ -7,6 +7,7 @@ package SpotOn;
  * - DIMAS INDRAWiJAYA - 2510631170032
  */
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +20,9 @@ import javax.swing.SwingConstants;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,8 +34,8 @@ import java.sql.SQLException;
 public class FormLogin implements ActionListener {
 
 	JFrame frame;
-	JTextField txtUserID;
-	JPasswordField txtPassword;
+	IconTextField txtUserID;
+	IconPasswordField txtPassword;
 	JLabel lblWelcome, lblLogo;
 	JButton btnLogin, btnReset;
 	JPanel panelKiri, panelKanan;
@@ -88,19 +91,22 @@ public class FormLogin implements ActionListener {
 		lblWelcome.setBounds(30, 40, 300, 25);
 		panelKanan.add(lblWelcome);
 
-		txtUserID = new JTextField();
-		txtUserID.setForeground(Color.GRAY);
+		ImageIcon userIcon = new ImageIcon("User.png");
+		ImageIcon lockIcon = new ImageIcon("PW.png");
+
+		txtUserID = new IconTextField(userIcon);
+		txtUserID.setForeground(Color.BLACK);
 		txtUserID.setFont(new Font("Arial", Font.PLAIN, 13));
 		txtUserID.setBounds(30, 80, 290, 35);
 		panelKanan.add(txtUserID);
 
-		txtPassword = new JPasswordField();
-		txtPassword.setForeground(Color.GRAY);
+		txtPassword = new IconPasswordField(lockIcon);
+		txtPassword.setForeground(Color.BLACK);
 		txtPassword.setBounds(30, 130, 290, 35);
 		panelKanan.add(txtPassword);
 
 		btnLogin = new JButton("Login");
-		btnLogin.setBackground(new Color(40, 167, 69));
+		btnLogin.setBackground(new Color(19, 27, 65));
 		btnLogin.setForeground(Color.WHITE);
 		btnLogin.setBounds(30, 190, 140, 35);
 		btnLogin.addActionListener(this);
@@ -108,8 +114,8 @@ public class FormLogin implements ActionListener {
 		panelKanan.add(btnLogin);
 
 		btnReset = new JButton("Reset");
-		btnReset.setBackground(new Color(220, 53, 69));
-		btnReset.setForeground(Color.WHITE);
+		btnReset.setBackground(new Color(217, 222, 233));
+		btnReset.setForeground(new Color(19, 27, 65));
 		btnReset.setBounds(180, 190, 140, 35);
 		btnReset.addActionListener(this);
 		btnReset.setFocusable(false);
@@ -160,6 +166,49 @@ public class FormLogin implements ActionListener {
 			}
 		} else if (e.getSource() == btnReset) {
 			kosongkanForm();
+		}
+	}
+
+	class IconTextField extends JTextField {
+		private Icon icon;
+
+		public IconTextField(Icon icon) {
+			this.icon = icon;
+			setMargin(new Insets(2, 30, 2, 2));
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			if (icon != null) {
+				int iconHeight = icon.getIconHeight();
+
+				int x = 7;
+				int y = (getHeight() - iconHeight) / 2;
+
+				icon.paintIcon(this, g, x, y);
+			}
+		}
+	}
+
+	class IconPasswordField extends JPasswordField {
+		private Icon icon;
+
+		public IconPasswordField(Icon icon) {
+			this.icon = icon;
+			setMargin(new Insets(2, 30, 2, 2));
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			if (icon != null) {
+				int iconHeight = icon.getIconHeight();
+				int x = 7;
+				int y = (getHeight() - iconHeight) / 2;
+
+				icon.paintIcon(this, g, x, y);
+			}
 		}
 	}
 
